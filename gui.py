@@ -30,7 +30,7 @@ class App():
         self.quality.set('Choose download format')
         
         self.button = tk.Button(self.mainFrame , text='Start Download'
-                                , command=self.start_download_yt_dl)
+                                , command=self.start_download)
         self.button.grid(row = ROW_START +3 , column= 1 , pady=50)
 
         self.button_search = tk.Button(self.mainFrame , text='Search'
@@ -75,9 +75,7 @@ class App():
         self.progress_percent.config(text = '0.0%')
 
     def check_video_done_callback(self, future):
-        lst = future.result()
-        print(lst)
-        self.quality['values'] = lst
+        self.quality['values'] = future.result()
         self.show_after_search()
         self.button_search.config(text = 'Search')
 
@@ -91,14 +89,14 @@ class App():
             self.button_search.config(text = 'Search')
             messagebox.showerror("Error" , str(err))
         
-        
+    
 
-    def start_download_yt_dl(self):
+    def start_download(self):
         self.show_on_download()
         format_index = self.quality.current()
         url = self.text_field.get()
         try:
-            self.downloader.download_video(url, format_index)
+            thread_pool_executor.submit(self.downloader.download_video, url, format_index)
         except Exception as err:
             messagebox.showerror("Error", str(err))
     
