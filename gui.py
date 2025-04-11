@@ -81,6 +81,7 @@ class App():
 
     def check_video_info(self):
         self.button_search.config(text = 'Searching...')
+        self.hide_before_search()
         try:
             url = self.text_field.get()
             future = thread_pool_executor.submit(self.downloader.search_for_video_formats, url)

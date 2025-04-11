@@ -14,3 +14,11 @@ def convert_size_to_string(filesize):
     else:
         return str(round(filesize / BYTE, 2)) + " Byte"
     
+def get_download_list_to_str(download_list : list) -> str:
+        result = ''
+        for format_id in download_list:
+            if len(result) > 0:
+                result = result + '+'
+            result += str(format_id)
+        return result
+    

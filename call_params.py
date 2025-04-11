@@ -8,6 +8,7 @@ class CallParams:
         self.progress_percent = progress_percent
     
     def update_params(self, d):
+        print(d,'\n','================================')
         if d['status'] == 'finished':
             self.status_text.config(text='Download Done.')
             self.progress_bar['value'] = 100
